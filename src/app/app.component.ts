@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { data$ } from './common/mock/data';
+import { Component, OnInit } from '@angular/core';
+import { ProductsService } from './products.service';
 
 @Component({
     selector: 'app-root',
@@ -10,11 +10,16 @@ import { data$ } from './common/mock/data';
 export class AppComponent implements OnInit {
     public appLogo = 'assets/img/logo.png';
     public text = '';
-    public products$ = data$;
+    public products$;
 
     // public control$$ = new Subject();
 
+    public constructor(
+        private _productsService: ProductsService
+    ) {}
+
     public ngOnInit(): void {
+        this.products$ = this._productsService.getProducts();
         // data$.pipe(takeUntil(this.control$$)).subscribe((products: IProduct[]) => {
         //           this.products = products;
         //       }

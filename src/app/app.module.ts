@@ -7,6 +7,11 @@ import { CardComponent } from './card/card.component';
 import { ProductsFilterPipe } from './products-filter.pipe';
 import { TooltipDirective } from './common/directives/tooltip.directive';
 import { ToUsdPipe } from './common/pipes/to-usd.pipe';
+import { ProductsService } from './products.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
+import { BASE_URL_TOKEN } from './config';
+import { CustomInterceptorService } from './common/services/custom-interceptor.service';
 // module, directive,pipe, service
 
 // es6 - import/export let/const
@@ -24,10 +29,27 @@ import { ToUsdPipe } from './common/pipes/to-usd.pipe';
         ToUsdPipe
     ],
     imports: [
-        BrowserModule
+        BrowserModule,
+        HttpClientModule,
     ],
     exports: [],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: CustomInterceptorService,
+            multi: true
+        },
+        ProductsService,
+        {
+            provide: BASE_URL_TOKEN,
+            useValue: environment.baseUrl,
+        },
+        {
+            provide: 'BASE_URL',
+            useValue: 'localhost:3000',
+        }
+    ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

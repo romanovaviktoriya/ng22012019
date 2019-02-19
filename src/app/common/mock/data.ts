@@ -95,3 +95,4 @@ export const data: IProduct[] = [
 
 export const data$: Observable<IProduct[]> = of(data)
     .pipe(delay(3000));
+

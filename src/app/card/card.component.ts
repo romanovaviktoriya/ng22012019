@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IProduct } from '../common/mock/data';
+import { IProduct } from '../store/reducers/products.reducer';
+import { IStore } from '../store';
+import { Store } from '@ngrx/store';
+import { AddProductToCart } from '../store/actions/cart.action';
 
 @Component({
     selector: 'app-card',
@@ -19,7 +22,9 @@ export class CardComponent implements OnInit, AfterViewInit {
     @ViewChild('t')
     public context;
 
-    constructor() { }
+    public constructor(
+        private _store: Store<IStore>
+    ) { }
 
     ngOnInit() {
     }
@@ -28,4 +33,7 @@ export class CardComponent implements OnInit, AfterViewInit {
         console.log(this.context);
     }
 
+    public addProductToCart(product: IProduct): void {
+        this._store.dispatch(new AddProductToCart(product));
+    }
 }

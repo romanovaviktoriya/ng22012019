@@ -12,6 +12,13 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { BASE_URL_TOKEN } from './config';
 import { CustomInterceptorService } from './common/services/custom-interceptor.service';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects } from './store/effects/products.effect';
+import { CartComponent } from './header/cart/cart.component';
+import { ProductComponent } from './header/cart/product/product.component';
 // module, directive,pipe, service
 
 // es6 - import/export let/const
@@ -26,11 +33,18 @@ import { CustomInterceptorService } from './common/services/custom-interceptor.s
         CardComponent,
         ProductsFilterPipe,
         TooltipDirective,
-        ToUsdPipe
+        ToUsdPipe,
+        CartComponent,
+        ProductComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot([ProductsEffects]),
+        environment.production
+            ? []
+            : StoreDevtoolsModule.instrument()
     ],
     exports: [],
     providers: [

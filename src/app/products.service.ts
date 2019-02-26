@@ -11,7 +11,11 @@ export class ProductsService {
     ) {}
 
     public getProducts(): Observable<IProduct[]> {
-       // example const user: IUser = { firstName: 'Igor' };
+        // example const user: IUser = { firstName: 'Igor' };
         return this._http.get<IProduct[]>(`/products`);
+    }
+
+    public getProduct(id: string): Observable<IProduct> {
+        return this._http.get<IProduct>(`/products/${id}`);
     }
 }

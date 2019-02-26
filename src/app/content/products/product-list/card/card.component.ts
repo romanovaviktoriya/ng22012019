@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IProduct } from '../store/reducers/products.reducer';
-import { IStore } from '../store';
+import { IProduct } from '../../../../store/reducers/products.reducer';
+import { IStore } from '../../../../store';
 import { Store } from '@ngrx/store';
-import { AddProductToCart } from '../store/actions/cart.action';
+import { AddProductToCart } from '../../../../store/actions/cart.action';
 
 @Component({
     selector: 'app-card',

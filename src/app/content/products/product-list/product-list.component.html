@@ -1,0 +1,11 @@
+<section class="main">
+  <div class="container">
+    <div class="row" *ngIf="(products$ | async) as products; else loadingGif">
+      <app-card  *ngFor="let product of products | productsFilter:text; index as i; odd as isOdd"
+        [product]="product"
+        [position]="i+1"
+        [isOdd]="isOdd"
+      ></app-card>
+    </div>
+  </div>
+</section>
